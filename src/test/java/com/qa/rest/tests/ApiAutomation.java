@@ -18,6 +18,8 @@ public class ApiAutomation {
         ApiAutomation.getMethod();
 //        ApiAutomation.postMethod();
 //        ApiAutomation.putMethod();
+//        ApiAutomation.deleteMethod();
+        ApiAutomation.getMethod1();
     }
 
     public static void getMethod() {
@@ -76,6 +78,19 @@ public class ApiAutomation {
         System.out.println("****************** GET Method End ******************");
     }
 
+    public static void deleteMethod() throws IOException {
+        System.out.println("****************** DELETE Method Start ******************");
+        Response response = RestAssured.given()
+                .auth().basic("tarunkishore@qa.com", "112233")
+                .accept("application/json")
+//                .pathParam("id", "5857405906386944")
+                .delete("https://tarunkishore.agilecrm.com/dev/api/contacts/4653106203394048");
+        System.out.println("Status Code: "+response.getStatusCode());
+
+        System.out.println("****************** DELETE Method End ******************");
+    }
+
+
     public static void postMethod() throws IOException {
         System.out.println("****************** POST Method Start ******************");
         byte[] reqJsonDatabtarray = Files.readAllBytes(Paths.get("/Users/tarunkishore/eclipse-workspace/RestAPI/src/test/resources/CreatContact.json"));
@@ -85,7 +100,8 @@ public class ApiAutomation {
         Number reqStarValue = reqJsonObjStarValue.getNumber("star_value");
         System.out.println("reqStarValue: " + reqStarValue);
 
-        Response response = RestAssured.given().auth().basic("tarunkishore@qa.com", "112233")
+        Response response = RestAssured
+                .given().auth().basic("tarunkishore@qa.com", "112233")
                 .contentType("application/json").accept("application/json")
                 .body(reqJsonBody)
                 .post("https://tarunkishore.agilecrm.com/dev/api/contacts");
@@ -133,61 +149,35 @@ public class ApiAutomation {
         System.out.println("****************** POST Method End ******************");
     }
 
-    public static void putMethod() throws IOException {
-        System.out.println("****************** PUT Method Start ******************");
-        byte[] reqJsonDatabtarray = Files.readAllBytes(Paths.get("/Users/tarunkishore/eclipse-workspace/RestAPI/src/test/resources/CreatContact.json"));
-        String reqJsonBody = new String(reqJsonDatabtarray);
-
-        JSONObject reqJsonObjStarValue = new JSONObject(reqJsonBody);
-        Number reqStarValue = reqJsonObjStarValue.getNumber("star_value");
-        System.out.println("reqStarValue: " + reqStarValue);
-
+    public static void getMethod1() {
+        System.out.println("****************** GET Method-1 Start ******************");
         Response response = RestAssured.given().auth().basic("tarunkishore@qa.com", "112233")
-                .contentType("application/json").accept("application/json")
-                .body(reqJsonBody)
-                .post("https://tarunkishore.agilecrm.com/dev/api/contacts");
+                .accept("application/json")
+                .get("https://tarunkishore.agilecrm.com/dev/api/contacts");
         String strResp = response.getBody().asPrettyString();
-        System.out.println(strResp);
-        System.out.println("Status Code of postMethod: " + response.getStatusCode());
-        System.out.println("Response Time of postMethod: " + response.getTime());
+//        System.out.println(strResp);
+        System.out.println("Status Code of getMethod: " + response.getStatusCode());
+        Assert.assertEquals(response.getStatusCode(), 200);
+        System.out.println("Response Time of getMethod: " + response.getTime());
 
-        JSONObject jsonResponseRoot = new JSONObject(strResp);
-        int contactId = jsonResponseRoot.getInt("id");
-        System.out.println("contactId : " + contactId);
+        JSONArray resJsonArray = new JSONArray(strResp);
+        JSONObject resJsonObjectBody = resJsonArray.getJSONObject(0);
+        Number resArrayObjectId = resJsonObjectBody.getNumber("id");
+        System.out.println("resArrayObjectId: " + resArrayObjectId);
 
-        String actualType = jsonResponseRoot.getString("type");
-        if (actualType.equalsIgnoreCase("person")) {
-            System.out.println("Pass");
-        } else {
-            System.out.println("Fail");
+        for (int i = 0; i < resJsonArray.length(); i++) {
+            JSONObject jsonObj = resJsonArray.getJSONObject(i);
+            System.out.println(i + " : id : " + jsonObj.getNumber("id"));
         }
 
-        JSONObject jsoViewed = jsonResponseRoot.getJSONObject("viewed");
-        Number viewed_time = jsoViewed.getNumber("viewed_time");
-        System.out.println("viewed_time: " + viewed_time);
 
-        JSONArray jsonTagArray = jsonResponseRoot.getJSONArray("tags");
-        String firstTag = jsonTagArray.getString(0);
-        System.out.println("firstTag: " + firstTag);
-        String secondTag = jsonTagArray.getString(1);
-        System.out.println("secondTag: " + secondTag);
+        String resArrayObjectType = resJsonObjectBody.getString("type");
+        System.out.println("resArrayObjectType: " + resArrayObjectType);
 
-        for (int i = 0; i < jsonTagArray.length(); i++) {
-            String x = jsonTagArray.getString(i);
-            System.out.println("Using for lopp: " + x);
-        }
 
-        JSONArray jsonPropArray = jsonResponseRoot.getJSONArray("properties");
-        JSONObject jsoFirstName = jsonPropArray.getJSONObject(0);
-        String fName = jsoFirstName.getString("value");
-        System.out.println("FirstName: " + fName);
 
-        Number repStarValue = jsonResponseRoot.getNumber("star_value");
-        System.out.println("repStarValue: " + repStarValue);
 
-        Assert.assertEquals(reqStarValue, repStarValue);
-
-        System.out.println("****************** PUT Method End ******************");
+        System.out.println("****************** GET Method-1 End ******************");
     }
 
 }

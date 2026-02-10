@@ -35,8 +35,7 @@ public class CodeStudio {
                 .when()
                 .get("https://fakerestapi.azurewebsites.net/api/v1/Activities")
                 .then()
-                .statusCode(200)
-        ;
+                .statusCode(200);
     }
 
 //    @Test
