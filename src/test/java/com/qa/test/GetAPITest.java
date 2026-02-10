@@ -5,14 +5,13 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
-import com.qa.base.TestBase;
+import com.qa.base.ConfigReader;
 import com.qa.client.RestClient;
 
-public class GetAPITest extends TestBase{
+public class GetAPITest extends ConfigReader {
 
-	TestBase testBase;
+	ConfigReader configReader;
 	String serviceURL;
 	String apiURL;
 	String url;
@@ -20,9 +19,9 @@ public class GetAPITest extends TestBase{
 	
 	@BeforeMethod
 	public void setup() throws IOException {
-		testBase = new TestBase();
-		serviceURL = prop.getProperty("URL");
-		apiURL = prop.getProperty("serviceURL");
+		configReader = new ConfigReader();
+		serviceURL = properties.getProperty("URL");
+		apiURL = properties.getProperty("serviceURL");
 		url = serviceURL + apiURL;
 		
 	}

@@ -1,0 +1,101 @@
+{
+  "star_value": 5,
+  "lead_score": 95,
+  "klout_score": "",
+  "tags": [
+    "Lead",
+    "Likely Buyer"
+  ],
+  "tagsWithTime": [
+    {
+      "tag": "Lead",
+      "createdTime": 1770267818697,
+      "availableCount": 0,
+      "entity_type": "tag"
+    },
+    {
+      "tag": "Likely Buyer",
+      "createdTime": 1770267818697,
+      "availableCount": 0,
+      "entity_type": "tag"
+    }
+  ],
+  "properties": [
+    {
+      "type": "SYSTEM",
+      "name": "first_name",
+      "value": "abc2"
+    },
+    {
+      "type": "SYSTEM",
+      "name": "last_name",
+      "value": "abc2"
+    },
+    {
+      "type": "SYSTEM",
+      "name": "email",
+      "subtype": "work",
+      "value": "abc2@ipl.com"
+    },
+    {
+      "type": "SYSTEM",
+      "name": "address",
+      "value": "{\"zip\":\"2000\",\"country\":\"AU\",\"address\":\"225 George Street\",\"city\":\"NSW\",\"countryname\":\"Australia\",\"state\":\"Sydney\"}"
+    },
+    {
+      "type": "SYSTEM",
+      "name": "phone",
+      "subtype": "work",
+      "value": "8888888889"
+    },
+    {
+      "type": "SYSTEM",
+      "name": "phone",
+      "subtype": "home",
+      "value": "8888888889"
+    },
+    {
+      "type": "SYSTEM",
+      "name": "website",
+      "subtype": "YOUTUBE",
+      "value": "www.youtube.com"
+    },
+    {
+      "type": "SYSTEM",
+      "name": "website",
+      "subtype": "LINKEDIN",
+      "value": "www.linkedin.com"
+    },
+    {
+      "type": "SYSTEM",
+      "name": "website",
+      "subtype": "URL",
+      "value": "www.mywebsite.com"
+    },
+    {
+      "type": "CUSTOM",
+      "name": "My custom field of type text",
+      "value": "My name is ghanshyam"
+    },
+    {
+      "type": "CUSTOM",
+      "name": "My custom field of type date",
+      "value": "1479580200"
+    },
+    {
+      "type": "CUSTOM",
+      "name": "My custom field of type checkbox",
+      "value": "on"
+    },
+    {
+      "type": "CUSTOM",
+      "name": "My custom field of type list",
+      "value": "lemon"
+    },
+    {
+      "type": "CUSTOM",
+      "name": "My custom field of type companies",
+      "value": "[\"5767466600890368\",\"5114076984246272\",\"5746725247516672\"]"
+    }
+  ]
+}

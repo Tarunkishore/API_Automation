@@ -1,5 +1,6 @@
 package com.qa.rest.tests;
 
+import com.qa.base.ConfigReader;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -9,9 +10,24 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matcher.*;
+import static org.hamcrest.Matchers.*;
 
 public class CodeStudio {
+
+    @Test
+    public void test5(){
+        RestAssured.baseURI = "https://reqres.in";
+
+        given()
+//                .header("x-api-key", "reqres_f5951af54ba24c5eaf2673a85ffbfd9d")
+                .header("x-api-key", ConfigReader.getProperty("x_api_key"))
+                .when()
+                .get("/api/users/2")
+                .then()
+                .statusCode(200)
+                .body("data.id", equalTo(2))
+                .log().all();
+    }
 
 //    @Test
     void test1(){
@@ -39,7 +55,7 @@ public class CodeStudio {
 
     }
 
-    @Test
+//    @Test
     public void test4(){
         given()
                 .when()
