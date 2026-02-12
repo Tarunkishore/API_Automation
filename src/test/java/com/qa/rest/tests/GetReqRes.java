@@ -7,12 +7,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matcher.*;
 
 
-public class GetCallBDD {
+public class GetReqRes {
 	public static void main(String... args){
-		GetCallBDD gcb = new GetCallBDD();
+		GetReqRes gcb = new GetReqRes();
 		gcb.testGETMethod();
 		gcb.testGETMethod1();
 		gcb.testGETMethod2();
