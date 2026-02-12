@@ -1,5 +1,6 @@
 package com.qa.rest.tests;
 
+import com.qa.base.ConfigReader;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -15,7 +16,7 @@ import java.nio.file.Paths;
 
 public class ApiAutomation {
     public static void main(String args[]) throws IOException {
-        ApiAutomation.getMethod();
+//        ApiAutomation.getMethod();
 //        ApiAutomation.postMethod();
 //        ApiAutomation.putMethod();
 //        ApiAutomation.deleteMethod();
@@ -24,7 +25,8 @@ public class ApiAutomation {
 
     public static void getMethod() {
         System.out.println("****************** GET Method Start ******************");
-        Response response = RestAssured.given().auth().basic("tarunkishore@qa.com", "112233")
+        Response response = RestAssured
+                .given().auth().basic(ConfigReader.getProperty("agileCRM_Username"),ConfigReader.getProperty("agileCRM_Password"))
                 .accept("application/json")
                 .get("https://tarunkishore.agilecrm.com/dev/api/contacts");
         String strResp = response.getBody().asPrettyString();
@@ -151,7 +153,9 @@ public class ApiAutomation {
 
     public static void getMethod1() {
         System.out.println("****************** GET Method-1 Start ******************");
-        Response response = RestAssured.given().auth().basic("tarunkishore@qa.com", "112233")
+        Response response = RestAssured
+        .given()
+                .auth().basic(ConfigReader.getProperty("agileCRM_Username"),ConfigReader.getProperty("agileCRM_Password"))
                 .accept("application/json")
                 .get("https://tarunkishore.agilecrm.com/dev/api/contacts");
         String strResp = response.getBody().asPrettyString();
