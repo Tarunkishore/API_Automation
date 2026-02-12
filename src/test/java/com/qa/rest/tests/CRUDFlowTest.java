@@ -8,7 +8,7 @@ public class CRUDFlowTest extends BaseTest {
 
     private static String userId; // to store created user ID
 
-    // 1️⃣ POST - Create User
+    //  POST - Create User
     @Test(priority = 1)
     public void createUser() {
 
@@ -28,7 +28,7 @@ public class CRUDFlowTest extends BaseTest {
         System.out.println("Created user ID: " + userId);
     }
 
-    // 2️⃣ PUT - Update User
+    //  PUT - Update User
     @Test(priority = 2, dependsOnMethods = "createUser")
     public void updateUser() {
 
@@ -43,7 +43,7 @@ public class CRUDFlowTest extends BaseTest {
                 .body("job", equalTo("Senior QA Engineer"));
     }
 
-    // 3️⃣ DELETE - Delete User
+    //  DELETE - Delete User
     @Test(priority = 3, dependsOnMethods = "updateUser")
     public void deleteUser() {
 
