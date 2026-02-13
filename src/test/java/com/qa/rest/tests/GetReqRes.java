@@ -11,10 +11,10 @@ import static io.restassured.RestAssured.*;
 
 public class GetReqRes {
 	public static void main(String... args){
-		GetReqRes gcb = new GetReqRes();
-		gcb.testGETMethod();
-		gcb.testGETMethod1();
-		gcb.testGETMethod2();
+		GetReqRes grr = new GetReqRes();
+		grr.testGETMethod();
+		grr.testGETMethod1();
+		grr.testGETMethod2();
 	}
 
 	public void testGETMethod() {
@@ -90,8 +90,8 @@ public class GetReqRes {
 		JSONObject ctaObject = metaObject.getJSONObject("cta");
 		System.out.println("cta_label: "+ctaObject.getString("label"));
 		System.out.println("cta_url: "+ctaObject.getString("url"));
-
-
+		
 		System.out.println("******* testGETMethod-2 END *******");
 	}
+
 }

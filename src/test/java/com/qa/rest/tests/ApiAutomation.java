@@ -18,9 +18,41 @@ public class ApiAutomation {
     public static void main(String args[]) throws IOException {
 //        ApiAutomation.getMethod();
 //        ApiAutomation.postMethod();
-//        ApiAutomation.putMethod();
 //        ApiAutomation.deleteMethod();
         ApiAutomation.getMethod1();
+//        ApiAutomation.putMethod();
+//        ApiAutomation.getMethod();
+    }
+
+    public static void putMethod(){
+        String str = "{\n" +
+                "  \"id\": 4631157511225344,\n" +
+                "  \"type\": \"PERSON\",\n" +
+                "  \"properties\": [\n" +
+                "    {\n" +
+                "      \"type\": \"SYSTEM\",\n" +
+                "      \"name\": \"first_name\",\n" +
+                "      \"value\": \"abc11\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+        Response response = RestAssured
+        .given()
+                .auth().preemptive()   // ✅ important
+                .basic(ConfigReader.getProperty("agileCRM_Username"),
+                        ConfigReader.getProperty("agileCRM_Password"))
+                .contentType("application/json")   // ✅ required
+                .accept("application/json")
+                .body(str)
+        .when()
+                .put("https://tarunkishore.agilecrm.com/dev/api/contacts")  // ✅ correct endpoint
+        .then()
+                .extract().response();
+
+        System.out.println("Status Code: " + response.getStatusCode());
+        System.out.println("Response: " + response.getBody().asPrettyString());
+
     }
 
     public static void getMethod() {
@@ -44,7 +76,6 @@ public class ApiAutomation {
             JSONObject jsonObj = resJsonArray.getJSONObject(i);
             System.out.println(i + " : id : " + jsonObj.getNumber("id"));
         }
-
 
         String resArrayObjectType = resJsonObjectBody.getString("type");
         System.out.println("resArrayObjectType: " + resArrayObjectType);
@@ -85,8 +116,8 @@ public class ApiAutomation {
         Response response = RestAssured.given()
                 .auth().basic("tarunkishore@qa.com", "112233")
                 .accept("application/json")
-//                .pathParam("id", "5857405906386944")
-                .delete("https://tarunkishore.agilecrm.com/dev/api/contacts/4653106203394048");
+                .pathParam("id", "4631157511225344")
+                .delete("https://tarunkishore.agilecrm.com/dev/api/contacts");
         System.out.println("Status Code: "+response.getStatusCode());
 
         System.out.println("****************** DELETE Method End ******************");
@@ -95,7 +126,7 @@ public class ApiAutomation {
 
     public static void postMethod() throws IOException {
         System.out.println("****************** POST Method Start ******************");
-        byte[] reqJsonDatabtarray = Files.readAllBytes(Paths.get("/Users/tarunkishore/eclipse-workspace/RestAPI/src/test/resources/CreatContact.json"));
+        byte[] reqJsonDatabtarray = Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"/src/test/resources/CreatContact.json"));
         String reqJsonBody = new String(reqJsonDatabtarray);
 
         JSONObject reqJsonObjStarValue = new JSONObject(reqJsonBody);
