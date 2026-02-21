@@ -3,6 +3,8 @@ package com.qa.rest.tests;
 import com.qa.base.ConfigReader;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.json.JSONObject;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,11 +14,13 @@ import java.util.Map;
 
 
 public class PostReqRes {
-    public static void main(String[] args) throws IOException {
-        PostReqRes.testPOSTMethod2();
+    public static void main(String... args) throws IOException {
+//        PostReqRes.testPOSTMethod();
+        PostReqRes.testPOSTMethod1();
+//        PostReqRes.testPOSTMethod2();
         PostReqRes.testGETMethod3();
+//        PostReqRes.testPOSTMethod4();
     }
-
     public static void testPOSTMethod(){
         System.out.println("******* testPOSTMethod START *******");
         // Read data directly
@@ -35,22 +39,24 @@ public class PostReqRes {
         System.out.println("******* testPOSTMethod END *******");
     }
 
+
     public static void testPOSTMethod1(){
         System.out.println("******* testPOSTMethod-1 START *******");
         // Read data using Map
         Map<String, String> requestBody = new HashMap<>();
-        requestBody.put("name", "RestAssured");
-        requestBody.put("job", "SDET");
+        requestBody.put("first_name", "RestAssured");
+        requestBody.put("last_name", "SDET");
 
         Response res = RestAssured.given().header("x-api-key", ConfigReader.getProperty("x_api_key"))
                 .contentType("application/json").body(requestBody)
-                .when().post("https://reqres.in/api/users");
+                .when().post("https://reqres.in/api/users?page=2&id=8");
         String responseJson=res.getBody().asPrettyString();
         System.out.println("Status Code: "+res.getStatusCode());
         System.out.println(responseJson);
 
         System.out.println("******* testPOSTMethod-1 END *******");
     }
+
 
     public static void testPOSTMethod2() throws IOException {
         System.out.println("******* testPOSTMethod-2 START *******");
@@ -68,16 +74,35 @@ public class PostReqRes {
         System.out.println("******* testPOSTMethod-2 END *******");
     }
 
+
     public static void testGETMethod3() throws IOException {
         System.out.println("******* testGETMethod-3 START *******");
         Response res = RestAssured.given().header("x-api-key", ConfigReader.getProperty("x_api_key"))
                 .contentType("application/json")
-                .when().get("https://reqres.in/api/users");
+                .when().get("https://reqres.in/api/users?page=2&id=8");
         String responseJson=res.getBody().asPrettyString();
         System.out.println("Status Code: "+res.getStatusCode());
         System.out.println(responseJson);
 
         System.out.println("******* testGETMethod-3 END *******");
+    }
+
+
+    public static void testPOSTMethod4(){
+        System.out.println("******* testPOSTMethod-4 START *******");
+        Map<String, String> data = new HashMap<>();
+        data.put("name", "Ravan");
+        data.put("job", "Tech");
+        Response res = RestAssured.given().header("x-api-key", ConfigReader.getProperty("x_api_key"))
+                .contentType("application/json")
+                .body(data)
+                .when().put("https://reqres.in/api/users/490");
+        String responseJson=res.getBody().asPrettyString();
+        System.out.println(responseJson);
+        System.out.println("Status Code: "+res.getStatusCode());
+
+
+        System.out.println("******* testPOSTMethod-4 END *******");
     }
 
 }

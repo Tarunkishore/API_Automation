@@ -17,12 +17,14 @@ import java.nio.file.Paths;
 public class ApiAutomation {
     public static void main(String args[]) throws IOException {
 //        ApiAutomation.getMethod();
-//        ApiAutomation.postMethod();
+        ApiAutomation.postMethod();
 //        ApiAutomation.deleteMethod();
-        ApiAutomation.getMethod1();
+//        ApiAutomation.getMethod1();
 //        ApiAutomation.putMethod();
 //        ApiAutomation.getMethod();
     }
+
+
 
     public static void putMethod(){
         String str = "{\n" +
@@ -123,7 +125,6 @@ public class ApiAutomation {
         System.out.println("****************** DELETE Method End ******************");
     }
 
-
     public static void postMethod() throws IOException {
         System.out.println("****************** POST Method Start ******************");
         byte[] reqJsonDatabtarray = Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"/src/test/resources/CreatContact.json"));
@@ -144,7 +145,7 @@ public class ApiAutomation {
         System.out.println("Response Time of postMethod: " + response.getTime());
 
         JSONObject jsonResponseRoot = new JSONObject(strResp);
-        int contactId = jsonResponseRoot.getInt("id");
+        Number contactId = jsonResponseRoot.getNumber("id");
         System.out.println("contactId : " + contactId);
 
         String actualType = jsonResponseRoot.getString("type");
@@ -178,6 +179,15 @@ public class ApiAutomation {
         System.out.println("repStarValue: " + repStarValue);
 
         Assert.assertEquals(reqStarValue, repStarValue);
+
+        JSONArray properties = jsonResponseRoot.getJSONArray("properties");
+        JSONObject first_name = properties.getJSONObject(0);
+        JSONObject last_name = properties.getJSONObject(1);
+        JSONObject email = properties.getJSONObject(2);
+        System.out.println("first_name: "+first_name.getString("value"));
+        System.out.println("last_name: "+last_name.getString("value"));
+        System.out.println("email: "+email.getString("value"));
+
 
         System.out.println("****************** POST Method End ******************");
     }
