@@ -65,8 +65,6 @@ public class GetReqRes {
 //			System.out.println(header.getName()+" : "+header.getValue());
 //		}
 
-
-
 		System.out.println("******* testGETMethod END *******");
 	}
 
